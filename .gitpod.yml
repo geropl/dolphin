@@ -1,0 +1,16 @@
+# Use a custom Docker images as workspace image
+image:
+  file: gitpod.Dockerfile
+# Build Dolphin on workspace init (first start)
+tasks:
+- init: >-
+        mkdir build &&
+        cd build &&
+        cmake .. -DLINUX_LOCAL_DEV=true &&
+        make -j 2 &&
+        ln -s ../../Data/Sys Binaries/
+# Expose VNC port by default
+ports:
+- port: 6080
+  onOpen: open-preview
+- port: 5090
